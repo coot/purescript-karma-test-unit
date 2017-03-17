@@ -1,0 +1,13 @@
+{
+  "name": "purescript-test-unit-karma",
+  "authors": [
+    "Marcin Szamotulski <mszamot@gmail.com>"
+  ],
+  "description": "karma test runner for test unit",
+  "main": "Main.purs",
+  "license": "MIT",
+  "homepage": "https://marcinszamotulski.me",
+  "dependencies": {
+    "purescript-test-unit": "^10.1.0"
+  }
+}
