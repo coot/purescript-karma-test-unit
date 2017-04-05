@@ -41,6 +41,7 @@ countTests tst =
            countTests tst'
        Right _ -> pure unit
 
+-- | Run a test suite using karma test runner.
 runKarma
   :: forall eff
    . TestSuite (console :: CONSOLE, avar :: AVAR | eff)
