@@ -1,12 +1,16 @@
 {
-  "name": "purescript-test-unit-karma",
+  "name": "purescript-karma-test-unit",
   "authors": [
     "Marcin Szamotulski <mszamot@gmail.com>"
   ],
   "description": "karma test runner for test unit",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coot/purescript-karma-test-unit.git"
+  },
   "main": "Main.purs",
   "license": "MIT",
-  "homepage": "https://marcinszamotulski.me",
+  "homepage": "https://github.com/coot/purescript-karma-test-unit",
   "dependencies": {
     "purescript-test-unit": "^10.1.0"
   }
