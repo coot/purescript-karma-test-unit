@@ -1,5 +1,5 @@
 {
-  "name": "purescript-test-unit-karma",
+  "name": "purescript-karma-test-unit",
   "version": "1.0.0",
   "description": "karma runner for purescript-test-unit",
   "main": "src/Test/Unit/Karma.purs",
@@ -8,12 +8,13 @@
     "test": "karma start --single-run"
   },
   "scripts": {
+    "postinstall": "bower install",
     "pretest": "pulp browserify --main 'Test.Main' -I test --to karma/index.js",
     "test": "karma start --single-run"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:coot/karma-purescript-test-unit.git"
+    "url": "git@github.com:coot/purescript-karma-test-unit.git"
   },
   "keywords": [
     "unit",
