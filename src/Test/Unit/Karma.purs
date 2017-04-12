@@ -49,8 +49,7 @@ runKarma
 runKarma = _runKarma <<< createRunner
   where
   createRunner
-    :: forall eff
-     . TestSuite (console :: CONSOLE, avar :: AVAR | eff)
+    :: TestSuite (console :: CONSOLE, avar :: AVAR | eff)
     -> Run (console :: CONSOLE, avar :: AVAR | eff)
   createRunner suite = \info result complete ->
     let
