@@ -1,9 +1,9 @@
-module Test.Unit.Karma 
-  ( runKarma 
+module Test.Unit.Karma
+  ( runKarma
   ) where
 
 import Prelude
-import Data.Array as A
+
 import Control.Monad.Aff (attempt)
 import Control.Monad.Aff.AVar (AVAR)
 import Control.Monad.Eff (Eff)
@@ -12,6 +12,7 @@ import Control.Monad.Eff.Console (CONSOLE)
 import Control.Monad.Eff.Exception (message)
 import Control.Monad.Free (resume)
 import Control.Monad.State (State, execState, modify)
+import Data.Array as A
 import Data.Either (Either(..))
 import Data.Foldable (foldl)
 import Test.Unit (Group(..), TestF(..), TestSuite, walkSuite)
@@ -31,11 +32,15 @@ foreign import _runKarma
 countTests :: forall eff. TestSuite eff -> State Int Unit
 countTests tst =
   case resume tst of
-       Left (TestGroup (Group label tst') tst'') ->
+       Left (TestGroup (Group _ tst') _ _ tst'') ->
          do
-           countTests tst' 
+           countTests tst'
            countTests tst''
-       Left (TestUnit label _ tst') -> 
+       Left (TestUnit _ _ _ _ tst') ->
+         do
+           modify (add 1)
+           countTests tst'
+       Left (SkipUnit _ tst') ->
          do
            modify (add 1)
            countTests tst'
@@ -56,10 +61,10 @@ runKarma = _runKarma <<< createRunner
       total = execState (countTests suite) 0
       karmaRunner tst = walkSuite runSuiteItem tst
         where
-          runSuiteItem path (TestGroup (Group label content) _) = do
-            pure unit
-          runSuiteItem path t'@(TestUnit label t rest) = do
-            res <- attempt t
+          runSuiteItem path (TestGroup _ _ _ _) = pure unit
+          runSuiteItem path (SkipUnit _ _) = pure unit
+          runSuiteItem path (TestUnit label _ _ test rest) = do
+            res <- attempt test
             case res of
               (Right _) -> do
                 liftEff $ result {id: label, suite: (foldl A.snoc [] path), description: label, log: [], success: true, skipped: false}
