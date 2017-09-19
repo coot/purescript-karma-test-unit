@@ -15,6 +15,7 @@ import Control.Monad.State (State, execState, modify)
 import Data.Array as A
 import Data.Either (Either(..))
 import Data.Foldable (foldl)
+import Data.Tuple (Tuple(..))
 import Test.Unit (Group(..), TestF(..), TestSuite, walkSuite)
 import Test.Unit.Main (run, runTestWith)
 
@@ -61,10 +62,9 @@ runKarma = _runKarma <<< createRunner
       total = execState (countTests suite) 0
       karmaRunner tst = walkSuite runSuiteItem tst
         where
-          runSuiteItem path (TestGroup _ _ _ _) = pure unit
-          runSuiteItem path (SkipUnit _ _) = pure unit
-          runSuiteItem path (TestUnit label _ _ test rest) = do
-            res <- attempt test
+          runSuiteItem path (Left _) = pure unit
+          runSuiteItem path (Right (Tuple label t)) = do
+            res <- attempt t
             case res of
               (Right _) -> do
                 liftEff $ result {id: label, suite: (foldl A.snoc [] path), description: label, log: [], success: true, skipped: false}
