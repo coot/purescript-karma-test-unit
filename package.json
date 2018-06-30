@@ -1,6 +1,6 @@
 {
   "name": "purescript-karma-test-unit",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "karma runner for purescript-test-unit",
   "main": "src/Test/Unit/Karma.purs",
   "directories": {
@@ -23,17 +23,20 @@
     "test-unit",
     "purescript"
   ],
-  "author": "Marcin Szamotulski",
+  "author": {
+    "name": "Marcin Szamotulski",
+    "email": "profunctor@pm.me",
+    "url": "https://marcinszamotulski.me"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/coot/karma-purescript-test-unit/issues"
   },
   "homepage": "https://github.com/coot/karma-purescript-test-unit",
   "devDependencies": {
-    "karma": "^1.5.0",
+    "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-spec-reporter": "0.0.30"
+    "karma-spec-reporter": "0.0.31"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
